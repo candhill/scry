@@ -15,6 +15,37 @@
     <td align="center" id="t_main" width="100%">
 
       <table align="center" cellpadding="0" cellspacing="0" border="0">
+
+
+
+        <tr>
+          <td width="30%" align="right" valign="bottom">
+          </td>
+          <td width="40%" align="middle" valign="bottom">
+<?php
+if (is_array($T['prev'])) {
+  print('<a style="text-decoration: none;" href="' . $T['prev']['view_url'] . '">&lt; previous</a>');
+} else {
+  print("&nbsp;&nbsp;previous");
+}
+  print(' | ');
+if (is_array($T['next'])) {
+  print('<a style="text-decoration: none;" href="' . $T['next']['view_url'] . '">next &gt;</a>');
+} else {
+  print("next&nbsp;&nbsp;");
+}
+?>
+          </td>
+
+                  <td width="30%" align="left" valign="bottom">
+          </td>
+            </tr>
+
+
+
+
+
+
         <tr>
           <td width="100%" colspan="3" align="center">
             <div class="images">
