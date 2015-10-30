@@ -17,9 +17,8 @@
       <table align="center" cellpadding="0" cellspacing="0" border="0">
 
         <tr>
-          <td width="30%" align="right" valign="bottom">
-          </td>
-          <td width="40%" align="middle" valign="bottom">
+          <td width="100%" colspan="3" align="center">
+            <div class="images">
 <?php
 if (is_array($T['prev'])) {
   print('<a style="text-decoration: none;" href="' . $T['prev']['view_url'] . '">&lt; previous</a>');
@@ -33,14 +32,7 @@ if (is_array($T['next'])) {
   print("next&nbsp;&nbsp;");
 }
 ?>
-          </td>
-          <td width="30%" align="left" valign="bottom">
-          </td>
-        </tr>
-
-        <tr>
-          <td width="100%" colspan="3" align="center">
-            <div class="images">
+	    <br />
             <img src="<?php print $T['current']['image_url']; ?>" alt="<?php print $T['current']['name']; ?>" width="<?php print $T['current']['view_size'][0]; ?>" height="<?php print $T['current']['view_size'][1]; ?>" />
             <br />
             <?php print $T['current']['name']; ?>
