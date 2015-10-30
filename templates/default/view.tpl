@@ -16,8 +16,6 @@
 
       <table align="center" cellpadding="0" cellspacing="0" border="0">
 
-
-
         <tr>
           <td width="30%" align="right" valign="bottom">
           </td>
@@ -36,15 +34,9 @@ if (is_array($T['next'])) {
 }
 ?>
           </td>
-
-                  <td width="30%" align="left" valign="bottom">
+          <td width="30%" align="left" valign="bottom">
           </td>
-            </tr>
-
-
-
-
-
+        </tr>
 
         <tr>
           <td width="100%" colspan="3" align="center">
