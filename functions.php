@@ -112,7 +112,7 @@ function cache_test($url, $x, $y) {
 //       '.' and '..' are not referenced in the directory array
 //
 function directory_data($path, $url_path) {
-  global $CFG_image_valid, $CFG_url_album, $CFG_thumb_width, $CFG_thumb_height, $CFG_image_width, $CFG_image_height, $CFG_path_images, $CFG_cache_outside_docroot;
+  global $CFG_image_valid, $CFG_url_album, $CFG_thumb_width, $CFG_thumb_height, $CFG_image_width, $CFG_image_height, $CFG_path_images, $CFG_cache_outside_docroot, $CFG_sort_reversed;
 
   //compensate for switching away from eregi
   $CFG_image_valid_i = array();
@@ -163,10 +163,15 @@ function directory_data($path, $url_path) {
   // sort directory arrays by filename
   //
   function cmp($a, $b) {
-    return strcasecmp($a['name'], $b['name']);
+    global $CFG_sort_reversed;
+    if (!$CFG_sort_reversed) {
+      return strcasecmp($a['name'], $b['name']);
+    } else {
+      return strcasecmp($b['name'], $a['name']);
+    }
   } // function cmp
-  @usort($dirs_raw,  'cmp');
-  @usort($files_raw, 'cmp');
+    @usort($dirs_raw,  'cmp');
+    @usort($files_raw, 'cmp');
 
   // reprocess arrays
   //

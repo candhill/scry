@@ -52,6 +52,10 @@ $CFG_resize_mode = 'XY';
 //
 $CFG_images_per_page = 0;
 
+// reverse the sort order of files and directories
+//
+$CFG_sort_reversed = false;
+
 // valid file extensions - case insensitive (jpg will also match JPG)
 //
 $CFG_image_valid = array("jpg", "jpeg", "png", "gif");
