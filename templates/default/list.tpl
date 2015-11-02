@@ -37,7 +37,11 @@ if (@count($T['files'])) {
 
 <?php
 while(list($k, $f) = @each($T['files'])) {
-  print('<a href="' . $f['view_url'] . '"><img src="' . $f['thumb_url'] . '" alt="' . $f['name'] . '" border="0"' . " /></a>\n");
+  if ($f['is_movie']) {
+    print('<a href="' . $f['view_url'] . '"><img src="' . $T['template_url'] . '/movie.png' . '" alt="' . $f['name'] . '" border="0"' . " /></a>\n");
+  } else {
+    print('<a href="' . $f['view_url'] . '"><img src="' . $f['thumb_url'] . '" alt="' . $f['name'] . '" border="0"' . " /></a>\n");
+  }
 } // while
 ?>
 

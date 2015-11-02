@@ -35,7 +35,7 @@ list($x, $y) = parse_resolution($INDEX);
 $image_props = getimagesize($PATH); // FS READ
 
 if (!is_array($image_props)) {
-  die('bad props');
+  //die('bad props');
 }
 
 // 0 INDEX or original size image: redirect or load image

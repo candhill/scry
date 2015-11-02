@@ -112,7 +112,7 @@ function cache_test($url, $x, $y) {
 //       '.' and '..' are not referenced in the directory array
 //
 function directory_data($path, $url_path) {
-  global $CFG_image_valid, $CFG_url_album, $CFG_thumb_width, $CFG_thumb_height, $CFG_image_width, $CFG_image_height, $CFG_path_images, $CFG_cache_outside_docroot, $CFG_sort_reversed;
+  global $CFG_image_valid, $CFG_url_album, $CFG_thumb_width, $CFG_thumb_height, $CFG_image_width, $CFG_image_height, $CFG_path_images, $CFG_cache_outside_docroot, $CFG_movies_enabled, $CFG_movie_valid;
 
   //compensate for switching away from eregi
   $CFG_image_valid_i = array();
@@ -120,9 +120,21 @@ function directory_data($path, $url_path) {
     $CFG_image_valid_i[] = $e;
     $CFG_image_valid_i[] = strtoupper($e);
   }
+  if ($CFG_movies_enabled) {
+    $CFG_movie_valid_i = array();
+    foreach($CFG_movie_valid as $e) {
+      $CFG_image_valid_i[] = $e;
+      $CFG_image_valid_i[] = strtoupper($e);
+      $CFG_movie_valid_i[] = $e;
+      $CFG_movie_valid_i[] = strtoupper($e);
+    }
+  }
   // put CFG_image_valid array into eregi form
   //
   $valid_extensions = '(.' . implode('|.', $CFG_image_valid_i) . ')$';
+  if ($CFG_movies_enabled) {
+    $valid_movie_extensions = '(.' . implode('|.', $CFG_movie_valid_i) . ')$';
+  }
 
   path_security_check($path, $CFG_path_images);
 
@@ -170,8 +182,8 @@ function directory_data($path, $url_path) {
       return strcasecmp($b['name'], $a['name']);
     }
   } // function cmp
-    @usort($dirs_raw,  'cmp');
-    @usort($files_raw, 'cmp');
+  @usort($dirs_raw,  'cmp');
+  @usort($files_raw, 'cmp');
 
   // reprocess arrays
   //
@@ -199,13 +211,22 @@ function directory_data($path, $url_path) {
 
     path_security_check("$path/$v[name]", $CFG_path_images);
 
+    if ($CFG_movies_enabled) {
+      if (preg_match("/{$valid_movie_extensions}/", "$v[name]")) {
+        $ismovie = true;
+      } else {
+        $ismovie = false;
+      }
+    }
+
     $files[] = array('name'       => $v['name'],
                      'index'      => $file_count,
                      'path'       => "$path/$v[name]",
                      'thumb_url'  => $thumb_url,
                      'image_url'  => $image_url,
                      'view_url'   => build_url('view', $file_count, $v['url']),
-                     'raw_url'    => build_url('image', '0', $v['url'])); // 0 index for raw image
+                     'raw_url'    => build_url('image', '0', $v['url']), // 0 index for raw image
+                     'is_movie'   => $ismovie);
     $file_count++;
   }
 
@@ -293,17 +314,25 @@ function calculate_resize($x1, $y1, $x2, $y2) {
   switch ($CFG_resize_mode) {
   case 'X':
     (int)$resize_x = $x2;
-    (int)$resize_y = round(($y1 * $x2)/$x1);
+    if ( $x1 != "" ) {
+      (int)$resize_y = round(($y1 * $x2)/$x1);
+    }
     break;
 
   case 'Y':
-    (int)$resize_x = round(($x1 * $y2)/$y1);
+    if ( $y1 != "" ) {
+      (int)$resize_x = round(($x1 * $y2)/$y1);
+    }
     (int)$resize_y = $y2;
     break;
 
   default:
-    (int)$resize_x = ($x1 <= $y1) ? round(($x1 * $y2)/$y1) : $x2;
-    (int)$resize_y = ($x1 >  $y1) ? round(($y1 * $x2)/$x1) : $y2;
+    if ( $y1 != "" ) {
+      (int)$resize_x = ($x1 <= $y1) ? round(($x1 * $y2)/$y1) : $x2;
+    }
+    if ( $x1 != "" ) {
+      (int)$resize_y = ($x1 >  $y1) ? round(($y1 * $x2)/$x1) : $y2;
+    }
     break;
   }
   return array($resize_x, $resize_y);

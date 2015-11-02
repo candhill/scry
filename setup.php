@@ -60,6 +60,14 @@ $CFG_sort_reversed = false;
 //
 $CFG_image_valid = array("jpg", "jpeg", "png", "gif");
 
+// enable movie support
+//
+$CFG_movies_enabled = true;
+
+// valid movie extensions - case insensitive (mov will also match MOV)
+//
+$CFG_movie_valid = array("mov", "mp4");
+
 // are the cache and images directories outside the webserver's docroot?
 //
 $CFG_cache_outside_docroot  = false;

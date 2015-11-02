@@ -25,7 +25,7 @@ if (is_array($T['prev'])) {
 } else {
   print("&nbsp;&nbsp;previous");
 }
-  print(' | ');
+print(' | ');
 if (is_array($T['next'])) {
   print('<a style="text-decoration: none;" href="' . $T['next']['view_url'] . '">next &gt;</a>');
 } else {
@@ -33,11 +33,21 @@ if (is_array($T['next'])) {
 }
 ?>
 	    <br />
+<?php
+if ($T['current']['is_movie']) { ?>
+	    <video preload="auto" width="640" height="480" id="<?php print $T['current']['name']; ?>" src="<?php print $T['current']['raw_url']; ?>" controls></video>
+<?php } else { ?>
             <img src="<?php print $T['current']['image_url']; ?>" alt="<?php print $T['current']['name']; ?>" width="<?php print $T['current']['view_size'][0]; ?>" height="<?php print $T['current']['view_size'][1]; ?>" />
+<?php } ?>
             <br />
             <?php print $T['current']['name']; ?>
             <br />
+<?php
+if ($T['current']['is_movie']) { ?>
+            <a href="<?php print($T['current']['raw_url']); ?>"><?php print($T['current']['file_size']); ?></a>
+<?php } else { ?>
             <a href="<?php print($T['current']['raw_url']); ?>"><?php print($T['current']['image_size'][0] . 'x' . $T['current']['image_size'][1] . ', ' . $T['current']['file_size']); ?></a>
+<?php } ?>
             </div>
           </td>
         </tr>
@@ -47,7 +57,11 @@ if (is_array($T['next'])) {
             <div class="images">
 <?php
 if (is_array($T['prev'])) {
-  print('<a style="text-decoration: none;" href="' . $T['prev']['view_url'] . '"><img src="' . $T['prev']['thumb_url'] . '" alt="previous" /><br />&lt; previous</a>');
+  if ($T['prev']['is_movie']) {
+    print('<a style="text-decoration: none;" href="' . $T['prev']['view_url'] . '"><img src="' . $T['template_url'] . '/movie.png' . '" alt="previous" /><br />&lt; previous</a>');
+  } else {
+    print('<a style="text-decoration: none;" href="' . $T['prev']['view_url'] . '"><img src="' . $T['prev']['thumb_url'] . '" alt="previous" /><br />&lt; previous</a>');
+  }
 } else {
   print("&nbsp;");
 }
@@ -79,7 +93,11 @@ if (is_array($T['current']['exif_data'])) {
             <div class="images">
 <?php
 if (is_array($T['next'])) {
-  print('<a style="text-decoration: none;" href="' . $T['next']['view_url'] . '"><img src="' . $T['next']['thumb_url'] . '" alt="next" /><br />next &gt;</a>');
+  if ($T['next']['is_movie']) {
+    print('<a style="text-decoration: none;" href="' . $T['next']['view_url'] . '"><img src="' . $T['template_url'] . '/movie.png' . '" alt="next" /><br />next &gt;</a>');
+  } else {
+    print('<a style="text-decoration: none;" href="' . $T['next']['view_url'] . '"><img src="' . $T['next']['thumb_url'] . '" alt="next" /><br />next &gt;</a>');
+  }  
 } else {
   print("&nbsp;");
 }
