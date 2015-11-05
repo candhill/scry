@@ -80,11 +80,18 @@ if (is_array($T['current']['exif_data'])) {
   //print(eregi_replace('[^a-z0-9 /-_]', '', $T['current']['exif_data']['SubIFD']['ExposureTime']) . " - ");
   //print(eregi_replace('[^a-z0-9 /-_]', '', $T['current']['exif_data']['SubIFD']['FNumber']) . " - ");
   //print(eregi_replace('[^a-z0-9 /-_]', '', $T['current']['exif_data']['SubIFD']['Flash']) . "<br />");
-  print(preg_replace('/[^a-z0-9 /-_]/', '', $T['current']['exif_data']['IFD0']['Model']) . "<br />");
-  print(preg_replace('/[^a-z0-9 /-_]/', '', $T['current']['exif_data']['IFD0']['DateTime']) . "<br />");
-  print(preg_replace('/[^a-z0-9 /-_]/', '', $T['current']['exif_data']['SubIFD']['ExposureTime']) . " - ");
-  print(preg_replace('/[^a-z0-9 /-_]/', '', $T['current']['exif_data']['SubIFD']['FNumber']) . " - ");
-  print(preg_replace('/[^a-z0-9 /-_]/', '', $T['current']['exif_data']['SubIFD']['Flash']) . "<br />");
+
+  //print(preg_replace('/[^a-z0-9 /-_]/', '', $T['current']['exif_data']['IFD0']['Model']) . "<br />");
+  //print(preg_replace('/[^a-z0-9 /-_]/', '', $T['current']['exif_data']['IFD0']['DateTime']) . "<br />");
+  //print(preg_replace('/[^a-z0-9 /-_]/', '', $T['current']['exif_data']['SubIFD']['ExposureTime']) . " - ");
+  //print(preg_replace('/[^a-z0-9 /-_]/', '', $T['current']['exif_data']['SubIFD']['FNumber']) . " - ");
+  //print(preg_replace('/[^a-z0-9 /-_]/', '', $T['current']['exif_data']['SubIFD']['Flash']) . "<br />");
+
+  print(($T['current']['exif_data']['IFD0']['Model']) . "<br />");
+  print(($T['current']['exif_data']['IFD0']['DateTime']) . "<br />");
+  print(($T['current']['exif_data']['SubIFD']['ExposureTime']) . " - ");
+  print(($T['current']['exif_data']['SubIFD']['FNumber']) . " - ");
+  print(($T['current']['exif_data']['SubIFD']['Flash']) . "<br />");
 }
 ?>
             </p>
