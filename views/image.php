@@ -33,6 +33,7 @@ ignore_user_abort(true);
 //
 list($x, $y) = parse_resolution($INDEX);
 $image_props = getimagesize($PATH); // FS READ
+$exif = $exif = exif_read_data($PATH);
 
 if (!is_array($image_props)) {
   //die('bad props');
@@ -127,6 +128,21 @@ if (!$CFG_debug_image) {
           $y == $CFG_thumb_height) ||
          ($x == $CFG_image_width &&
           $y == $CFG_image_height))) {
+      if (!empty($exif['Orientation'])) {
+        switch ($exif['Orientation']) {
+          case 3:
+            $new_image = imagerotate($new_image, 180, 0);
+            break;
+
+          case 6:
+            $new_image = imagerotate($new_image, -90, 0);
+            break;
+
+          case 8:
+            $new_image = imagerotate($new_image, 90, 0);
+            break;
+        }
+      }
       ImageJPEG($new_image, $cache['path'], $CFG_jpeg_compression); // FS WRITE
       header('Location: '. $cache['cache_url']);
       exit();
