@@ -33,7 +33,7 @@ ignore_user_abort(true);
 //
 list($x, $y) = parse_resolution($INDEX);
 $image_props = getimagesize($PATH); // FS READ
-$exif = $exif = exif_read_data($PATH);
+$exif = exif_read_data($PATH);
 
 if (!is_array($image_props)) {
   //die('bad props');
