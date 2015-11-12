@@ -120,6 +120,23 @@ if (!$CFG_debug_image) {
                          $image_props[1]);
     }
 
+    // orient thumbnail
+    if (!empty($exif['Orientation'])) {
+      switch ($exif['Orientation']) {
+        case 3:
+          $new_image = imagerotate($new_image, 180, 0);
+          break;
+
+        case 6:
+          $new_image = imagerotate($new_image, -90, 0);
+          break;
+
+        case 8:
+          $new_image = imagerotate($new_image, 90, 0);
+          break;
+      }
+    }
+
     // verify cache enabled, path writable, and target size OK to be cached
     //
     if ($CFG_cache_enable &&
@@ -128,21 +145,6 @@ if (!$CFG_debug_image) {
           $y == $CFG_thumb_height) ||
          ($x == $CFG_image_width &&
           $y == $CFG_image_height))) {
-      if (!empty($exif['Orientation'])) {
-        switch ($exif['Orientation']) {
-          case 3:
-            $new_image = imagerotate($new_image, 180, 0);
-            break;
-
-          case 6:
-            $new_image = imagerotate($new_image, -90, 0);
-            break;
-
-          case 8:
-            $new_image = imagerotate($new_image, 90, 0);
-            break;
-        }
-      }
       ImageJPEG($new_image, $cache['path'], $CFG_jpeg_compression); // FS WRITE
       header('Location: '. $cache['cache_url']);
       exit();

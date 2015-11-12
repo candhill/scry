@@ -37,7 +37,7 @@ if (is_array($T['next'])) {
 if ($T['current']['is_movie']) { ?>
 	    <video preload="auto" width="640" height="480" id="<?php print $T['current']['name']; ?>" src="<?php print $T['current']['raw_url']; ?>" controls></video>
 <?php } else { ?>
-            <img src="<?php print $T['current']['image_url']; ?>" alt="<?php print $T['current']['name']; ?>" width="<?php print $T['current']['view_size'][0]; ?>" height="<?php print $T['current']['view_size'][1]; ?>" />
+            <img src="<?php print $T['current']['image_url']; ?>" alt="<?php print $T['current']['name']; ?>" />
 <?php } ?>
             <br />
             <?php print $T['current']['name']; ?>
